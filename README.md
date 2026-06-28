@@ -16,6 +16,7 @@ Describing "put the save button a bit to the right of the profile picture" to an
 - Place draggable elements: button, text, image placeholder, rectangle, icon marker.
 - Two size fields you can type into: **window size** and **canvas size**.
 - Toggleable grid + snap-to-grid.
+- **Zoom** in/out with Ctrl+scroll wheel; Ctrl+0 resets to 100%.
 - Per-element label text and an optional free-text comment.
 - **Auto-save** to the last file you opened; reopen continues where you left off.
 - Export one deterministic, human- **and** machine-readable JSON block ready to paste into any chat.

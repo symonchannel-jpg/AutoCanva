@@ -12,6 +12,7 @@ const store = {
     backgroundImageName: '',
     elements: [],
     selectedId: null,
+    zoom: 1,
   },
 
   _idCounter: 0,
@@ -44,6 +45,7 @@ const store = {
   setGridSize(v) { this.state.gridSize = this.clampedSize(v, 4, 200); this.emit(); },
   setSnapEnabled(v) { this.state.snapEnabled = !!v; this.emit(); },
   setShowGrid(v) { this.state.showGrid = !!v; this.emit(); },
+  setZoom(v) { this.state.zoom = Math.max(0.1, Math.min(5, Math.round(v * 10) / 10)); this.emit(); },
   setBackgroundOpacity(v) { this.state.backgroundOpacity = this.clampedSize(v, 0, 100) / 100; this.emit(); },
   setBackgroundImage(url, name) { this.state.backgroundImageURL = url; this.state.backgroundImageName = name || ''; this.emit(); },
   clearBackgroundImage() { this.state.backgroundImageURL = ''; this.state.backgroundImageName = ''; this.emit(); },

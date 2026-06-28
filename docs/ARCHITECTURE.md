@@ -33,6 +33,7 @@ The whole app state is one plain object, kept in `src/renderer/store.js`:
   canvasHeight: 600,
   gridSize: 20,
   snapEnabled: true,
+  zoom: 1,                       // display scale 0.1–5, affects DOM only
   backgroundImagePath: "",        // info only — image bytes are NOT stored/exported
   backgroundOpacity: 0.7,
   elements: [
@@ -69,6 +70,16 @@ The whole app state is one plain object, kept in `src/renderer/store.js`:
 5. Canvas dimensions are resized to match (capped at 4000px), clamping existing elements to the new bounds.
 6. The background image is then set on the visible `<img>` inside the canvas, and a toast confirms the resize.
 7. If the image fails to load (corrupted file, unsupported format), the background is still set but canvas size stays unchanged; a toast warns the user.
+
+## Zoom
+
+- The canvas dimensions are multiplied by `state.zoom` (default `1`, range `0.1`–`5`) in the DOM, so all elements, grid lines, and the background image scale uniformly.
+- Element `x`, `y`, `width`, `height` in `store.state` always remain in **canvas coordinates** (unscaled). Only the DOM rendering multiplies by `zoom`.
+- **Ctrl+scroll wheel** over the canvas changes zoom in 0.1 steps.
+- **Ctrl+0** (or Cmd+0) resets zoom to 1.0 (100%).
+- The zoom percentage is displayed in the toolbar next to the Export button.
+- Drag calculations divide mouse coordinates by `zoom` so dragging works correctly at any zoom level.
+- Because the canvas DOM size is scaled, the scroll container (`#canvasWrap`) naturally shows scrollbars when zoom > 1.25× or so, and centers the canvas via flexbox when zoom < 1.
 
 ## Data flow for export
 

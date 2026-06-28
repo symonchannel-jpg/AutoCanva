@@ -38,6 +38,7 @@ body{
 .toolbar .group.right{ margin-left:auto; }
 .toolbar input[type="number"]{ width:62px; }
 .toolbar input[type="range"]{ width:90px; }
+.zoom-level{ font-size:12px; color:var(--muted); min-width:38px; text-align:right; }
 
 input[type="number"], input[type="text"], textarea, select{
   background:var(--surface-2);

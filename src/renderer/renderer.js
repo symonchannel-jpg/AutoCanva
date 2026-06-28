@@ -20,6 +20,7 @@ const loadRef = $('loadRef');
 const opacity = $('opacity');
 const clearRef = $('clearRef');
 const exportBtn = $('exportBtn');
+const zoomDisplay = $('zoomLevel');
 
 // Toolbox
 const addButtons = document.querySelectorAll('[data-add]');
@@ -50,13 +51,15 @@ let lastPanelSelectionId = null;
 function renderApp() {
   const s = store.state;
 
-  // Canvas size
-  canvas.style.width = s.canvasWidth + 'px';
-  canvas.style.height = s.canvasHeight + 'px';
+  // Canvas size (scaled by zoom so scrollbars work correctly)
+  const z = s.zoom;
+  canvas.style.width = (s.canvasWidth * z) + 'px';
+  canvas.style.height = (s.canvasHeight * z) + 'px';
+  if (zoomDisplay) zoomDisplay.textContent = Math.round(z * 100) + '%';
 
-  // Grid overlay
+  // Grid overlay (scaled by zoom)
   canvas.classList.toggle('show-grid', s.showGrid);
-  canvas.style.setProperty('--grid-size', s.gridSize + 'px');
+  canvas.style.setProperty('--grid-size', (s.gridSize * z) + 'px');
 
   // Background image (in a dedicated <img> so opacity doesn't affect grid overlay)
   if (s.backgroundImageURL) {
@@ -98,12 +101,12 @@ function renderApp() {
       existingMap.delete(el.id);
     }
     div.className = 'el el--' + el.type + (s.selectedId === el.id ? ' el--selected' : '');
-    div.style.left = el.x + 'px';
-    div.style.top = el.y + 'px';
-    div.style.width = el.width + 'px';
-    div.style.height = el.height + 'px';
+    div.style.left = (el.x * z) + 'px';
+    div.style.top = (el.y * z) + 'px';
+    div.style.width = (el.width * z) + 'px';
+    div.style.height = (el.height * z) + 'px';
     if (el.type === 'icon' && el.label.length <= 2) {
-      div.style.fontSize = Math.min(el.height, el.width) * 0.6 + 'px';
+      div.style.fontSize = (Math.min(el.height, el.width) * 0.6 * z) + 'px';
     } else {
       div.style.fontSize = '';
     }
@@ -210,12 +213,13 @@ function onElementMouseDown(e) {
   store.selectElement(id);
 
   const rect = canvas.getBoundingClientRect();
+  const scale = store.state.zoom || 1;
   dragState = {
     id,
     startX: el.x,
     startY: el.y,
-    offsetX: e.clientX - rect.left - el.x,
-    offsetY: e.clientY - rect.top - el.y,
+    offsetX: (e.clientX - rect.left) / scale - el.x,
+    offsetY: (e.clientY - rect.top) / scale - el.y,
   };
   e.preventDefault();
 }
@@ -224,8 +228,9 @@ document.addEventListener('mousemove', (e) => {
   if (!dragState) return;
   const s = store.state;
   const rect = canvas.getBoundingClientRect();
-  let nx = e.clientX - rect.left - dragState.offsetX;
-  let ny = e.clientY - rect.top - dragState.offsetY;
+  const scale = s.zoom || 1;
+  let nx = (e.clientX - rect.left) / scale - dragState.offsetX;
+  let ny = (e.clientY - rect.top) / scale - dragState.offsetY;
   if (s.snapEnabled && s.gridSize > 0) {
     nx = Math.round(nx / s.gridSize) * s.gridSize;
     ny = Math.round(ny / s.gridSize) * s.gridSize;
@@ -238,8 +243,8 @@ document.addEventListener('mousemove', (e) => {
   el.y = cy;
   const div = canvas.querySelector(`[data-id="${dragState.id}"]`);
   if (div) {
-    div.style.left = cx + 'px';
-    div.style.top = cy + 'px';
+    div.style.left = (cx * scale) + 'px';
+    div.style.top = (cy * scale) + 'px';
   }
 });
 
@@ -259,12 +264,13 @@ function onElementDblClick(e) {
   if (!el) return;
   if (el.type === 'image' || el.type === 'rect') return;
   const div = e.currentTarget;
+  const z = store.state.zoom || 1;
   const input = document.createElement('input');
   input.type = 'text';
   input.value = el.label;
   input.className = 'el-inline-edit';
-  input.style.width = Math.max(40, el.width - 8) + 'px';
-  input.style.height = (el.height - 8) + 'px';
+  input.style.width = Math.max(40, el.width * z - 8) + 'px';
+  input.style.height = (el.height * z - 8) + 'px';
   div.textContent = '';
   div.appendChild(input);
   input.focus();
@@ -307,6 +313,13 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Delete' || e.key === 'Backspace') {
     e.preventDefault();
     store.removeElement(s.selectedId);
+    return;
+  }
+
+  if (e.key === '0' && (e.ctrlKey || e.metaKey)) {
+    e.preventDefault();
+    store.setZoom(1);
+    toast('Zoom reset');
     return;
   }
 
@@ -380,6 +393,15 @@ function setupToolbar() {
       toast('Could not copy to clipboard');
     });
   });
+
+  // Zoom with Ctrl+wheel
+  canvasWrap.addEventListener('wheel', (e) => {
+    if (!e.ctrlKey) return;
+    e.preventDefault();
+    const s = store.state;
+    const dir = e.deltaY < 0 ? 1 : -1;
+    store.setZoom(s.zoom + dir * 0.1);
+  }, { passive: false });
 
   addButtons.forEach(btn => {
     btn.addEventListener('click', () => {
