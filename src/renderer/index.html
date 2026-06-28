@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: file:; style-src 'self' 'unsafe-inline'; script-src 'self';" />
+  <title>AutoCanva</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="toolbar">
+    <div class="brand">AutoCanva</div>
+    <div class="group" data-group="window">
+      <span>Window</span>
+      <input id="winW" type="number" min="320" value="1280" />
+      <input id="winH" type="number" min="240" value="720" />
+    </div>
+    <div class="group" data-group="canvas">
+      <span>Canvas</span>
+      <input id="canW" type="number" min="1" value="800" />
+      <input id="canH" type="number" min="1" value="600" />
+    </div>
+    <div class="group" data-group="grid">
+      <span>Grid</span>
+      <input id="gridSize" type="number" min="1" value="20" />
+      <label><input id="snap" type="checkbox" checked /> Snap</label>
+      <label><input id="showGrid" type="checkbox" checked /> Show</label>
+    </div>
+    <div class="group" data-group="ref">
+      <button id="loadRef">Load reference…</button>
+      <input id="opacity" type="range" min="0" max="100" value="70" />
+      <button id="clearRef">Clear</button>
+    </div>
+    <div class="group right">
+      <button id="exportBtn" class="accent">Export</button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <aside class="toolbox">
+      <button data-add="button">Button</button>
+      <button data-add="text">Text</button>
+      <button data-add="image">Image</button>
+      <button data-add="rect">Rectangle</button>
+      <button data-add="icon">Icon</button>
+    </aside>
+
+    <div id="canvasWrap">
+      <div id="canvas">
+        <div class="grid-overlay"></div>
+        <!-- elements injected here -->
+        <p class="empty-hint">Load a reference image to start, then add elements from the left.</p>
+      </div>
+    </div>
+
+    <aside class="panel">
+      <p class="panel-empty">No element selected.</p>
+    </aside>
+  </main>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

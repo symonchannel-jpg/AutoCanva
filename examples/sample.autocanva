@@ -1,0 +1,57 @@
+{
+  "appVersion": "0.1.0",
+  "schemaVersion": 1,
+  "state": {
+    "windowWidth": 1280,
+    "windowHeight": 720,
+    "canvasWidth": 800,
+    "canvasHeight": 600,
+    "gridSize": 20,
+    "snapEnabled": true,
+    "show": true,
+    "backgroundOpacity": 0.7,
+    "backgroundImagePath": "profile.png",
+    "elements": [
+      {
+        "id": "rect_01",
+        "type": "rect",
+        "label": "",
+        "x": 0,
+        "y": 0,
+        "width": 800,
+        "height": 60,
+        "comment": "top app bar"
+      },
+      {
+        "id": "btn_01",
+        "type": "button",
+        "label": "Save",
+        "x": 120,
+        "y": 540,
+        "width": 96,
+        "height": 32,
+        "comment": "primary action, blue background"
+      },
+      {
+        "id": "txt_01",
+        "type": "text",
+        "label": "Profile",
+        "x": 16,
+        "y": 18,
+        "width": 120,
+        "height": 28,
+        "comment": ""
+      },
+      {
+        "id": "icon_01",
+        "type": "icon",
+        "label": "*",
+        "x": 740,
+        "y": 16,
+        "width": 48,
+        "height": 48,
+        "comment": "settings gear"
+      }
+    ]
+  }
+}

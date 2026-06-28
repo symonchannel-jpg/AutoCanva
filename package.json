@@ -1,0 +1,30 @@
+{
+  "name": "autocanva",
+  "version": "0.1.0",
+  "description": "A simple visual bridge for non-technical users to communicate UI layout intent to vision-less coding agents. Drag buttons, text, shapes and image placeholders over a reference image, then export exact coordinates.",
+  "main": "src/main/main.js",
+  "author": "AutoCanva Contributors",
+  "license": "MIT",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/USER/autocanva.git"
+  },
+  "keywords": [
+    "electron",
+    "ui-design",
+    "layout-planner",
+    "coding-agent",
+    "accessibility",
+    "visual-prompting"
+  ],
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "lint": "eslint \"src/**/*.js\""
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "eslint": "^9.0.0"
+  }
+}
