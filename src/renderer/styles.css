@@ -135,8 +135,9 @@ label{ display:inline-flex; align-items:center; gap:4px; color:var(--muted); cur
   min-height:0;
 }
 .panel-empty{ color:var(--muted); }
-.panel .row{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
-.panel label{ display:block; color:var(--muted); margin-bottom:4px; }
+.panel .row{ display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+.panel label{ display:block; color:var(--muted); margin-bottom:3px; }
+.panel input, .panel select, .panel textarea{ width:100%; }
 
 .el{
   position:absolute;
