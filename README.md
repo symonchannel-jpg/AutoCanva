@@ -91,6 +91,24 @@ The app window opens immediately. No build step, no bundler, no configuration.
 
 ---
 
+### Preview Your Export
+
+Before handing the export to an AI, you can preview it locally with `preview.html`:
+
+```bash
+# Open preview.html in your browser (double-click or:)
+start preview.html
+```
+
+1. **Paste** the export JSON into the page (it comes with a sample pre-loaded)
+2. The layout renders automatically using the `rel*` percentages mapped to the target window size
+3. Verify buttons, text, and all elements are positioned correctly
+4. If it looks right, paste the export into your AI chat
+
+> `preview.html` is a standalone file — no server, no dependencies. It simulates the downstream agent: it reads the export and renders elements purely by coordinates, just like your AI will.
+
+---
+
 ## 📚 Documentation
 
 ### Tech Stack
@@ -111,6 +129,7 @@ The app window opens immediately. No build step, no bundler, no configuration.
 autocanva/
 ├── AGENTS.md              # Rules for any coding agent working on this project
 ├── PLAN.md                # Step-by-step build plan
+├── preview.html           # Preview tool: paste an export to render the layout visually
 ├── docs/
 │   ├── ARCHITECTURE.md    # Runtime and data-flow description
 │   ├── EXPORT_FORMAT.md   # Canonical export schema (do not break)

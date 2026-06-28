@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Layout Preview — X Pattern</title>
+<style>
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  body{
+    background:#0e0e10; color:#e4e4e7;
+    font-family:"Segoe UI", system-ui, sans-serif;
+    display:flex; align-items:center; justify-content:center;
+    min-height:100vh;
+  }
+  .window{
+    width:1280px; height:720px;
+    position:relative; overflow:hidden;
+    background:#18181b; border-radius:8px;
+    border:1px solid #27272a; flex-shrink:0;
+  }
+  .btn{
+    position:absolute;
+    display:flex; align-items:center; justify-content:center;
+    border:2px solid #d4a017; border-radius:6px;
+    background:rgba(212,160,23,0.1);
+    color:#d4a017; font-size:12px; font-weight:700;
+    text-transform:uppercase; letter-spacing:1px;
+    cursor:default; user-select:none;
+    padding:0 4px; white-space:nowrap;
+  }
+  .btn:hover{ background:rgba(212,160,23,0.25); }
+</style>
+</head>
+<body>
+
+<div class="window">
+
+  <!-- Top center (was 47.5% 20% 7.5% 3.33%, shifted by -0.75% -0.333%, scaled 1.2 = 9% 4%) -->
+  <div class="btn" style="left:46.75%; top:19.67%; width:9%; height:4%">adorni</div>
+
+  <!-- Left arm (6.25% wide → 7.5%, shift left by 0.625%; 3.33% tall → 4%, shift up by 0.333%) -->
+  <div class="btn" style="left:44.38%; top:26.34%; width:7.5%; height:4%">adorni</div>
+  <div class="btn" style="left:39.38%; top:33%; width:7.5%; height:4%">adorni</div>
+  <div class="btn" style="left:36.88%; top:39.67%; width:7.5%; height:4%">adorni</div>
+  <div class="btn" style="left:34.38%; top:46.34%; width:7.5%; height:4%">adorni</div>
+  <div class="btn" style="left:31.88%; top:53%; width:7.5%; height:4%">adorni</div>
+  <div class="btn" style="left:29.38%; top:59.67%; width:7.5%; height:4%">adorni</div>
+  <div class="btn" style="left:26.88%; top:66.34%; width:7.5%; height:4%">adorni</div>
+  <div class="btn" style="left:24.38%; top:73%; width:7.5%; height:4%">adorni</div>
+  <div class="btn" style="left:19.38%; top:79.67%; width:7.5%; height:4%">adorni</div>
+
+  <!-- Right arm -->
+  <div class="btn" style="left:51.88%; top:26.34%; width:7.5%; height:4%">adorni</div>
+  <div class="btn" style="left:54.38%; top:33%; width:7.5%; height:4%">adorni</div>
+  <div class="btn" style="left:56.88%; top:39.67%; width:7.5%; height:4%">adorni</div>
+  <div class="btn" style="left:59.38%; top:46.34%; width:7.5%; height:4%">adorni</div>
+  <div class="btn" style="left:61.88%; top:53%; width:7.5%; height:4%">adorni</div>
+  <div class="btn" style="left:64.38%; top:59.67%; width:7.5%; height:4%">adorni</div>
+  <div class="btn" style="left:66.88%; top:66.34%; width:7.5%; height:4%">adorni</div>
+  <div class="btn" style="left:69.38%; top:73%; width:7.5%; height:4%">adorni</div>
+  <div class="btn" style="left:71.88%; top:79.67%; width:7.5%; height:4%">adorni</div>
+
+</div>
+
+</body>
+</html>

@@ -121,6 +121,10 @@ Field rules:
 }
 ```
 
+## Testing exports locally
+
+The repo includes `preview.html` — a standalone tool that simulates the downstream agent. Open it in a browser, paste any AutoCanva export, and it renders the layout using `rel*` percentages mapped onto the target window dimensions. Use it to verify your export before sending it to an AI.
+
 ## Downstream agent quick guide (paste this with the export)
 
 1. Treat each element's `relX/relY/relWidth/relHeight` as **percentages of the target window** the user gave you.
