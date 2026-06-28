@@ -67,6 +67,7 @@ If a file isn't in this map, don't create it without first stating **why** the e
 7. **Verify before declaring done:** run `npm install && npm start`. The window must open, the canvas must render, drag must work, export must produce valid JSON matching `EXPORT_FORMAT.md`. If you can't run it, say so explicitly instead of claiming it works.
 8. **Never ask the end user to type shell commands.** All interaction is through the UI. If something requires the terminal, that's a bug or a missing menu item.
 9. **Follow PLAN.md's order** unless the human redirects you. Each phase ends with a clear "done when" checklist — check every box.
+10. **Never change visual CSS when fixing a layout bug.** If the panel overflows, add `overflow`, `min-width`, or `max-width` but do NOT touch `padding`, `margin`, `font-size`, `display`, `width` (of elements that already had one), or any other property that alters the look. The human approved a specific visual design; layout fixes must be invisible. If you need a visual change, ask first.
 
 ## 6. Design principles (when in doubt)
 
