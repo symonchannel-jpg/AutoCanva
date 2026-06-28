@@ -12,7 +12,7 @@ Describing "put the save button a bit to the right of the profile picture" to an
 
 ## Features (MVP)
 
-- Load any image as a visual-only reference background.
+- Load any image as a visual-only reference background. The canvas auto-resizes to match the image dimensions.
 - Place draggable elements: button, text, image placeholder, rectangle, icon marker.
 - Two size fields you can type into: **window size** and **canvas size**.
 - Toggleable grid + snap-to-grid.

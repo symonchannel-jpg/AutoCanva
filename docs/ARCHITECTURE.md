@@ -60,6 +60,16 @@ The whole app state is one plain object, kept in `src/renderer/store.js`:
 3. On `mouseup` (or live, debounced), `store.moveElement(id, x, y)` runs and `persist()` writes to disk.
 4. The canvas DOM is re-validated: elements are clamped to `0..canvasWidth` and `0..canvasHeight`; negative or zero sizes are rejected.
 
+## Data flow for reference image loading
+
+1. User clicks **Load reference…** button → `renderer.js` calls `window.autocanva.pickImage()`.
+2. Main process opens a native file dialog filtered to image types; returns the file path as a `file://` URL and the file name.
+3. Renderer creates a temporary `Image` object, sets its `src` to the URL.
+4. On `img.onload`, the image's `naturalWidth` / `naturalHeight` are read.
+5. Canvas dimensions are resized to match (capped at 4000px), clamping existing elements to the new bounds.
+6. The background image is then set on the visible `<img>` inside the canvas, and a toast confirms the resize.
+7. If the image fails to load (corrupted file, unsupported format), the background is still set but canvas size stays unchanged; a toast warns the user.
+
 ## Data flow for export
 
 1. User clicks **Export**.

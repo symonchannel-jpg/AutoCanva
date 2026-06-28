@@ -348,8 +348,20 @@ function setupToolbar() {
     if (window.autocanva && window.autocanva.pickImage) {
       const result = await window.autocanva.pickImage();
       if (result && result.url) {
-        store.setBackgroundImage(result.url, result.name || '');
-        toast('Reference image loaded');
+        const img = new Image();
+        img.onload = () => {
+          const w = Math.min(img.naturalWidth, 4000);
+          const h = Math.min(img.naturalHeight, 4000);
+          store.setCanvasWidth(w);
+          store.setCanvasHeight(h);
+          store.setBackgroundImage(result.url, result.name || '');
+          toast('Canvas resized to ' + w + 'x' + h);
+        };
+        img.onerror = () => {
+          store.setBackgroundImage(result.url, result.name || '');
+          toast('Image loaded, could not read size');
+        };
+        img.src = result.url;
       }
     }
   });
